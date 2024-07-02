@@ -76,12 +76,24 @@ function alterarContexto (contexto) {
 
 
 const contagemTrgressiva = () => {
-    iniciar();
+    if(tempoDecorridoEmSegundos <= 0){
+        zerar();
+        return
+    }
     tempoDecorridoEmSegundos -= 1
 }
 
-startPauseBtn.addEventListener('click', contagemTrgressiva);
+startPauseBtn.addEventListener('click', iniciaEpausar);
 
-function iniciar() {
+function iniciarEpausar() {
+    if(intervaloId){
+        zerar()
+        return
+    }
     intervaloId.setInterval(contagemTrgressiva, 1000);
+}
+
+function zerar() {
+    clearInterval(intervaloId);
+    intervaloId = null;
 }
