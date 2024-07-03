@@ -4,6 +4,8 @@ const btnCurto = document.querySelector('.app__card-button--curto');
 const btnLongo = document.querySelector('.app__card-button--longo');
 const banner = document.querySelector('.app__image');
 const titulo = document.querySelector('.app__title');
+const iniciarOuPausarBtn = document.querySelector('#start-pause span');
+
 const botoes = document.querySelectorAll('.app__card-button');
 const startPauseBtn = document.querySelector('#start-pause');
 const musicaFocoInput = document.querySelector('#alternar-musica');
@@ -75,7 +77,7 @@ function alterarContexto (contexto) {
 }
 
 
-const contagemTrgressiva = () => {
+const contagemRegressiva = () => {
     if(tempoDecorridoEmSegundos <= 0){
         zerar();
         return
@@ -83,17 +85,19 @@ const contagemTrgressiva = () => {
     tempoDecorridoEmSegundos -= 1
 }
 
-startPauseBtn.addEventListener('click', iniciaEpausar);
+startPauseBtn.addEventListener('click', iniciarEpausar);
 
 function iniciarEpausar() {
     if(intervaloId){
         zerar()
         return
     }
-    intervaloId.setInterval(contagemTrgressiva, 1000);
+    intervaloId.setInterval(contagemRegressiva, 1000);
+    iniciarOuPausarBtn.textContent = "Pausar"
 }
 
 function zerar() {
     clearInterval(intervaloId);
+    iniciarOuPausarBtn.textContent = "Começar";
     intervaloId = null;
 }
