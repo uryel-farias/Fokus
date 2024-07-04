@@ -5,6 +5,7 @@ const btnLongo = document.querySelector('.app__card-button--longo');
 const banner = document.querySelector('.app__image');
 const titulo = document.querySelector('.app__title');
 const iniciarOuPausarBtn = document.querySelector('#start-pause span');
+const tempoNaTela = document.querySelector('#timer')
 
 const botoes = document.querySelectorAll('.app__card-button');
 const startPauseBtn = document.querySelector('#start-pause');
@@ -81,8 +82,10 @@ const contagemRegressiva = () => {
     if(tempoDecorridoEmSegundos <= 0){
         zerar();
         return
-    }
+    } else {
     tempoDecorridoEmSegundos -= 1
+    }
+    mostrarTempo();
 }
 
 startPauseBtn.addEventListener('click', iniciarEpausar);
@@ -97,7 +100,13 @@ function iniciarEpausar() {
 }
 
 function zerar() {
-    clearInterval(intervaloId);
-    iniciarOuPausarBtn.textContent = "Começar";
+    clearInterval(intervaloId) 
+    iniciarOuPausarBtn.textContent = "Começar"
     intervaloId = null;
+    temporizador = 5;
+}
+
+function mostrarTempo() {
+    const tempo = tempoDecorridoEmSegundos 
+    tempoNaTela.innerHTML = `${tempo}`
 }
