@@ -95,7 +95,7 @@ function iniciarEpausar() {
         zerar()
         return
     }
-    intervaloId.setInterval(contagemRegressiva, 1000);
+    intervaloId = setInterval(contagemRegressiva, 1000);
     iniciarOuPausarBtn.textContent = "Pausar"
 }
 
