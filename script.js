@@ -5,7 +5,7 @@ const btnLongo = document.querySelector('.app__card-button--longo');
 const banner = document.querySelector('.app__image');
 const titulo = document.querySelector('.app__title');
 const iniciarOuPausarBtn = document.querySelector('#start-pause span');
-const tempoNaTela = document.querySelector('#timer')
+const tempoNaTela = document.querySelector('#timer');
 
 const botoes = document.querySelectorAll('.app__card-button');
 const startPauseBtn = document.querySelector('#start-pause');
@@ -15,7 +15,7 @@ const musica = new Audio('/sons/luna-rise-part-one.mp3');
 musica.loop = true;
 
 
-let tempoDecorridoEmSegundos = 5;
+let tempoDecorridoEmSegundos = 1500;
 let intervaloId = null;
 
 
@@ -28,29 +28,30 @@ musicaFocoInput.addEventListener('change', () => {
 })
 
 btnFoco.addEventListener('click', () => {
+    tempoDecorridoEmSegundos = 1500;
     alterarContexto('foco');
     btnFoco.classList.add('active');
+
 
 
 })
 
 btnCurto.addEventListener('click', () => {
+    tempoDecorridoEmSegundos = 300;
     alterarContexto('descanso-curto');
     btnCurto.classList.add('active');
-
 
 })
 
 btnLongo.addEventListener('click', () => {
+    tempoDecorridoEmSegundos = 900;
     alterarContexto('descanso-longo');
     btnLongo.classList.add('active');
 
 })
 
 function alterarContexto (contexto) {
-    botoes.forEach(function (contexto) {
-        contexto.classList.remove('active')
-    })
+    mostrarTempo()
     html.setAttribute('data-contexto', contexto)
     banner.setAttribute('src', `/imagens/${contexto}.png`)
     switch (contexto) {
@@ -103,10 +104,13 @@ function zerar() {
     clearInterval(intervaloId) 
     iniciarOuPausarBtn.textContent = "Começar"
     intervaloId = null;
-    temporizador = 5;
+    temporizador = 1500;
+}
+function mostrarTempo() {
+    const tempo = new Date(tempoDecorridoEmSegundos * 1000);
+    const tempoFormatado = tempo.toLocaleTimeString('pt-Br', { minute: '2-digit', second: '2-digit' });
+    tempoNaTela.innerHTML = `${tempoFormatado}`;
 }
 
-function mostrarTempo() {
-    const tempo = tempoDecorridoEmSegundos 
-    tempoNaTela.innerHTML = `${tempo}`
-}
+
+mostrarTempo();
